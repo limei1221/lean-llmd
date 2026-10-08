@@ -1,0 +1,30 @@
+# llm-d's own router (standalone mode: Envoy beside the EPP), pointed at the course's
+# simulators and shrunk to fit a laptop. Chart: oci://ghcr.io/llm-d/charts/llm-d-router-standalone
+router:
+  modelServers:
+    matchLabels:
+      app: sim
+    targetPorts:
+      - number: 8000
+  extraServicePorts:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8081
+  epp:
+    image:
+      tag: v0.11.0
+      pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 1Gi
+  proxy:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        memory: 512Mi

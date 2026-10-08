@@ -1,0 +1,21 @@
+# A single Prometheus server, laptop-sized. Its default config already scrapes every Pod
+# annotated prometheus.io/scrape: "true" (job "kubernetes-pods").
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
+prometheus-node-exporter:
+  enabled: false
+kube-state-metrics:
+  enabled: false
+server:
+  persistentVolume:
+    enabled: false
+  global:
+    scrape_interval: 5s
+    scrape_timeout: 4s
+    evaluation_interval: 5s
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
